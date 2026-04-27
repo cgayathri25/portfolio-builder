@@ -1,0 +1,117 @@
+body {
+  margin: 0;
+  background: #f8fafc;
+  font-family: 'Inter', sans-serif;
+  color: #1e293b;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+header {
+  background: #ffffff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  z-index: 10;
+}
+
+.editor-grid {
+  display: grid;
+  grid-template-columns: 450px 1fr;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.sidebar {
+  background: #ffffff;
+  padding: 2rem;
+  border-right: 1px solid #e2e8f0;
+  overflow-y: auto;
+}
+
+.sidebar h3 {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: #94a3b8;
+  letter-spacing: 1px;
+  margin-top: 2rem;
+}
+
+.sidebar hr {
+  border: 0;
+  border-top: 1px solid #f1f5f9;
+  margin: 2rem 0;
+}
+
+.preview-pane {
+  background: #cbd5e1;
+  padding: 40px;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.preview-window {
+  width: 100%;
+  max-width: 800px;
+  background: white;
+  min-height: 1000px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.save-btn {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+}
+
+.save-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.save-btn:active {
+  transform: scale(0.98);
+}
+
+.theme-modern-dark { 
+  --primary: #38bdf8; 
+  background: #0f172a; 
+  color: #f8fafc; 
+}
+
+.theme-royal-blue { 
+  --primary: #fbbf24; 
+  background: #1e1b4b; 
+  color: #e0e7ff; 
+}
+
+.theme-minimal-light { 
+  --primary: #000000; 
+  background: #ffffff; 
+  color: #334155; 
+}

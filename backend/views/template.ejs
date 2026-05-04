@@ -1,44 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= portfolio.title %></title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        :root { --primary: #2563eb; --text: #1e293b; --bg: #ffffff; }
-        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; color: var(--text); background: var(--bg); transition: 0.3s; }
-        
-        /* Theme: Midnight Onyx */
-        .theme-modern-dark { --bg: #0f172a; --text: #f8fafc; --primary: #38bdf8; }
-        /* Theme: Royal Aesthetic */
-        .theme-royal-blue { --bg: #1e1b4b; --text: #e0e7ff; --primary: #fbbf24; }
-        /* Theme: Minimalist */
-        .theme-minimal-light { --bg: #ffffff; --text: #334155; --primary: #000000; }
-
-        .container { max-width: 900px; margin: 0 auto; padding: 100px 20px; }
-        .hero { text-align: center; margin-bottom: 80px; }
-        .hero h1 { font-size: 3.5rem; margin-bottom: 10px; color: var(--primary); }
-        section { margin-bottom: 60px; }
-        h2 { border-left: 4px solid var(--primary); padding-left: 15px; text-transform: uppercase; letter-spacing: 2px; font-size: 1.2rem; }
-        .content { font-size: 1.1rem; line-height: 1.8; opacity: 0.9; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= portfolio.title %></title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; line-height: 1.6; }
+    .portfolio-title { padding: 48px 36px 32px; font-size: 2rem; font-weight: 700; border-bottom: 1px solid #e2e8f0; }
+    .block { padding: 40px 36px; border-bottom-width: 1px; border-bottom-style: solid; }
+    .block-heading { font-size: 1.6rem; font-weight: 700; border-left-width: 4px; border-left-style: solid; padding-left: 14px; margin-bottom: 4px; }
+    .block-subheading { font-size: 0.95rem; margin-left: 18px; margin-bottom: 20px; opacity: 0.6; }
+    .block-bio { font-size: 1rem; line-height: 1.8; opacity: 0.9; }
+    .skills-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+    .skill-tag { padding: 6px 16px; border-width: 1px; border-style: solid; border-radius: 20px; font-size: 0.875rem; }
+    .projects-list { display: flex; flex-direction: column; gap: 16px; margin-top: 4px; }
+    .project-card { padding: 18px 20px; border-width: 1px; border-style: solid; border-radius: 8px; }
+    .project-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
+    .project-name { font-size: 1rem; font-weight: 600; }
+    .project-link { font-size: 11px; padding: 3px 10px; border-width: 1px; border-style: solid; border-radius: 4px; text-decoration: none; }
+    .project-desc { font-size: 0.9rem; line-height: 1.7; opacity: 0.8; }
+    .contact-list { display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
+    .contact-row { display: flex; align-items: center; gap: 12px; }
+    .contact-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; min-width: 64px; }
+    .contact-link { font-size: 0.9rem; opacity: 0.85; text-decoration: none; }
+    .theme-dark { background: #0f172a; color: #f8fafc; border-bottom-color: #1e293b; }
+    .theme-dark .block-heading { color: #38bdf8; border-left-color: #38bdf8; }
+    .theme-dark .skill-tag { border-color: #38bdf8; color: #38bdf8; }
+    .theme-dark .project-card { border-color: #1e293b; }
+    .theme-dark .project-name { color: #38bdf8; }
+    .theme-dark .project-link { border-color: #38bdf8; color: #38bdf8; }
+    .theme-dark .contact-label { color: #38bdf8; }
+    .theme-dark .contact-link { color: #f8fafc; }
+    .theme-minimal { background: #ffffff; color: #1e293b; border-bottom-color: #e2e8f0; }
+    .theme-minimal .block-heading { color: #000000; border-left-color: #000000; }
+    .theme-minimal .skill-tag { border-color: #000000; color: #000000; }
+    .theme-minimal .project-card { border-color: #e2e8f0; }
+    .theme-minimal .project-name { color: #000000; }
+    .theme-minimal .project-link { border-color: #000000; color: #000000; }
+    .theme-minimal .contact-label { color: #000000; }
+    .theme-minimal .contact-link { color: #1e293b; }
+    .theme-light { background: #f8fafc; color: #334155; border-bottom-color: #e2e8f0; }
+    .theme-light .block-heading { color: #2563eb; border-left-color: #2563eb; }
+    .theme-light .skill-tag { border-color: #2563eb; color: #2563eb; }
+    .theme-light .project-card { border-color: #e2e8f0; }
+    .theme-light .project-name { color: #2563eb; }
+    .theme-light .project-link { border-color: #2563eb; color: #2563eb; }
+    .theme-light .contact-label { color: #2563eb; }
+    .theme-light .contact-link { color: #334155; }
+  </style>
 </head>
-<body class="theme-<%= portfolio.theme %>">
-    <div class="container">
-        <div class="hero">
-            <h1><%= portfolio.title %></h1>
-            <p>Generated by PortfolioBuilder</p>
-        </div>
+<body>
 
-        <% portfolio.sections.sort((a, b) => a.order - b.order).forEach(section => { %>
-            <section>
-                <h2><%= section.type %></h2>
-                <div class="content">
-                    <%= section.content %>
+  <div class="portfolio-title theme-<%= portfolio.blocks && portfolio.blocks.length > 0 ? portfolio.blocks[0].theme : 'light' %>">
+    <%= portfolio.title %>
+  </div>
+
+  <% if (portfolio.blocks && portfolio.blocks.length > 0) { %>
+    <% portfolio.blocks.slice().sort((a, b) => a.order - b.order).forEach(function(block) { %>
+      <div class="block theme-<%= block.theme %>">
+
+        <% if (block.content.heading) { %>
+          <h2 class="block-heading"><%= block.content.heading %></h2>
+        <% } %>
+        <% if (block.content.subheading) { %>
+          <p class="block-subheading"><%= block.content.subheading %></p>
+        <% } %>
+
+        <% if (block.type === 'about') { %>
+          <% if (block.content.bio) { %>
+            <p class="block-bio"><%= block.content.bio %></p>
+          <% } %>
+
+        <% } else if (block.type === 'skills') { %>
+          <% if (block.content.items && block.content.items.length > 0) { %>
+            <div class="skills-list">
+              <% block.content.items.forEach(function(skill) { %>
+                <span class="skill-tag"><%= skill %></span>
+              <% }); %>
+            </div>
+          <% } %>
+
+        <% } else if (block.type === 'projects') { %>
+          <% if (block.content.items && block.content.items.length > 0) { %>
+            <div class="projects-list">
+              <% block.content.items.forEach(function(project) { %>
+                <div class="project-card">
+                  <div class="project-card-header">
+                    <span class="project-name"><%= project.name %></span>
+                    <% if (project.link) { %>
+                      <a href="<%= project.link %>" class="project-link" target="_blank" rel="noreferrer">View →</a>
+                    <% } %>
+                  </div>
+                  <% if (project.description) { %>
+                    <p class="project-desc"><%= project.description %></p>
+                  <% } %>
                 </div>
-            </section>
-        <% }) %>
+              <% }); %>
+            </div>
+          <% } %>
+
+        <% } else if (block.type === 'contact') { %>
+          <div class="contact-list">
+            <% if (block.content.email) { %>
+              <div class="contact-row">
+                <span class="contact-label">Email</span>
+                <a href="mailto:<%= block.content.email %>" class="contact-link"><%= block.content.email %></a>
+              </div>
+            <% } %>
+            <% if (block.content.github) { %>
+              <div class="contact-row">
+                <span class="contact-label">GitHub</span>
+                <a href="<%= block.content.github %>" class="contact-link" target="_blank"><%= block.content.github %></a>
+              </div>
+            <% } %>
+            <% if (block.content.linkedin) { %>
+              <div class="contact-row">
+                <span class="contact-label">LinkedIn</span>
+                <a href="<%= block.content.linkedin %>" class="contact-link" target="_blank"><%= block.content.linkedin %></a>
+              </div>
+            <% } %>
+          </div>
+        <% } %>
+
+      </div>
+    <% }); %>
+  <% } else { %>
+    <div style="padding: 48px 36px; color: #94a3b8; text-align: center;">
+      This portfolio has no blocks yet.
     </div>
+  <% } %>
+
 </body>
 </html>

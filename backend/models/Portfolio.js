@@ -36,7 +36,6 @@ const BlockSchema = new mongoose.Schema({
     // Shared across all block types
     heading:            { type: String, default: '' },
     subheading:         { type: String, default: '' },
-    showDarkModeToggle: { type: Boolean, default: false },
 
     // About
     bio: { type: String, default: '' },

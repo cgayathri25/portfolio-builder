@@ -87,23 +87,82 @@ const ToggleInput = ({ value, onChange }) => (
   </label>
 );
 
-// List input — skills are stored as an array, edited as newline-separated text
 const ListInput = ({ value, onChange }) => {
-  const text = Array.isArray(value) ? value.join('\n') : '';
+  const [inputVal, setInputVal] = React.useState('');
+  const items = Array.isArray(value) ? value : [];
+
+  const addItem = () => {
+    const trimmed = inputVal.trim();
+    if (!trimmed) return;
+    onChange([...items, trimmed]);
+    setInputVal('');
+  };
+
+  const removeItem = (index) => {
+    onChange(items.filter((_, i) => i !== index));
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addItem();
+    }
+  };
+
   return (
-    <textarea
-      rows={5}
-      value={text}
-      placeholder="One skill per line..."
-      onChange={(e) => {
-        const lines = e.target.value
-          .split('\n')
-          .map((l) => l.trim())
-          .filter((l) => l.length > 0);
-        onChange(lines);
-      }}
-      style={{ ...inputStyle, resize: 'vertical', lineHeight: '1.6' }}
-    />
+    <div>
+      {/* Existing skills as removable tags */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '8px' }}>
+        {items.map((item, i) => (
+          <span key={i} style={{
+            padding: '3px 10px',
+            background: '#eff6ff',
+            border: '1px solid #bfdbfe',
+            borderRadius: '20px',
+            fontSize: '12px',
+            color: '#2563eb',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+          }}>
+            {item}
+            <button
+              onClick={() => removeItem(i)}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#93c5fd', fontSize: '14px', lineHeight: 1, padding: 0 }}
+            >
+              ×
+            </button>
+          </span>
+        ))}
+      </div>
+
+      {/* Input + Add button */}
+      <div style={{ display: 'flex', gap: '6px' }}>
+        <input
+          type="text"
+          value={inputVal}
+          placeholder="Type a skill..."
+          onChange={(e) => setInputVal(e.target.value)}
+          onKeyDown={handleKeyDown}
+          style={{ ...inputStyle, marginTop: 0, flex: 1 }}
+        />
+        <button
+          onClick={addItem}
+          style={{
+            padding: '8px 12px',
+            background: '#2563eb',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '6px',
+            fontSize: '13px',
+            cursor: 'pointer',
+            flexShrink: 0,
+          }}
+        >
+          Add
+        </button>
+      </div>
+    </div>
   );
 };
 

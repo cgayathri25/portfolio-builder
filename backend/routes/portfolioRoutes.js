@@ -4,10 +4,10 @@ const Portfolio = require('../models/Portfolio');
 
 router.post('/save', async (req, res) => {
     try {
-        const { username, title, theme, sections } = req.body;
+        const { username, title, blocks } = req.body;
         let portfolio = await Portfolio.findOneAndUpdate(
             { username },
-            { title, theme, sections },
+            { title, blocks },
             { new: true, upsert: true }
         );
         res.status(200).json(portfolio);
